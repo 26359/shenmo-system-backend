@@ -1,0 +1,335 @@
+{
+  "info": {
+    "name": "shenmo-system-midterm",
+    "description": "Postman collection for the Shenmo System Spring Boot backend. One request per requirement, named by ID.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "A2 - CRUD",
+      "item": [
+        {
+          "name": "A2 - Save skill",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/skills/save",
+            "body": {"mode": "raw", "raw": "{\n  \"name\": \"Cloud Support\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Get all skills",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/skills/all"}
+        },
+        {
+          "name": "A2 - Get skill by id",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/skills/11111111-1111-1111-1111-111111111101"}
+        },
+        {
+          "name": "A2 - Get skill by id (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/skills/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "A2 - Update skill",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/skills/update/11111111-1111-1111-1111-111111111101",
+            "body": {"mode": "raw", "raw": "{\n  \"name\": \"Billing Updated\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Delete skill",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/skills/delete/11111111-1111-1111-1111-111111111101"}
+        },
+        {
+          "name": "A2 - Save counter",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/counters/save",
+            "body": {"mode": "raw", "raw": "{\n  \"counterNumber\": 5,\n  \"name\": \"Counter 5\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Get all counters",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/counters/all"}
+        },
+        {
+          "name": "A2 - Get counter by id",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/counters/22222222-2222-2222-2222-222222222201"}
+        },
+        {
+          "name": "A2 - Get counter by id (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/counters/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "A2 - Update counter",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/counters/update/22222222-2222-2222-2222-222222222201",
+            "body": {"mode": "raw", "raw": "{\n  \"counterNumber\": 1,\n  \"name\": \"Counter 1\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Delete counter",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/counters/delete/22222222-2222-2222-2222-222222222201"}
+        },
+        {
+          "name": "A2 - Save agent",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/agents/save",
+            "body": {"mode": "raw", "raw": "{\n  \"firstName\": \"New\",\n  \"lastName\": \"Agent\",\n  \"email\": \"new@example.com\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Get all agents",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/agents/all"}
+        },
+        {
+          "name": "A2 - Get agent by id",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/agents/33333333-3333-3333-3333-333333333301"}
+        },
+        {
+          "name": "A2 - Get agent by id (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/agents/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "A2 - Update agent",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/agents/update/33333333-3333-3333-3333-333333333301",
+            "body": {"mode": "raw", "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Delete agent",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/agents/delete/33333333-3333-3333-3333-333333333301"}
+        },
+        {
+          "name": "A2 - Save customer",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/customers/save",
+            "body": {"mode": "raw", "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"customerCode\": \"CU-99999\",\n  \"phone\": \"0700000000\",\n  \"email\": \"test@example.com\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Get all customers",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/all"}
+        },
+        {
+          "name": "A2 - Get customer by id",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/44444444-4444-4444-4444-444444444401"}
+        },
+        {
+          "name": "A2 - Get customer by id (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "A2 - Update customer",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/customers/update/44444444-4444-4444-4444-444444444401",
+            "body": {"mode": "raw", "raw": "{\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Uwimana\",\n  \"customerCode\": \"CU-00001\",\n  \"phone\": \"0780000001\",\n  \"email\": \"alice@example.com\"\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Delete customer",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/customers/delete/44444444-4444-4444-4444-444444444401"}
+        },
+        {
+          "name": "A2 - Save service request",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-requests/save",
+            "body": {"mode": "raw", "raw": "{\n  \"requestDate\": \"2026-10-30\",\n  \"subject\": \"New request\",\n  \"customer\": {\"id\": \"44444444-4444-4444-4444-444444444401\"},\n  \"agent\": {\"id\": \"33333333-3333-3333-3333-333333333301\"}\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Get all service requests",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/all"}
+        },
+        {
+          "name": "A2 - Get service request by id",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/55555555-5555-5555-5555-555555555501"}
+        },
+        {
+          "name": "A2 - Get service request by id (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "A2 - Update service request",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-requests/update/55555555-5555-5555-5555-555555555501",
+            "body": {"mode": "raw", "raw": "{\n  \"requestDate\": \"2026-10-05\",\n  \"subject\": \"Billing issue updated\",\n  \"customer\": {\"id\": \"44444444-4444-4444-4444-444444444401\"},\n  \"agent\": {\"id\": \"33333333-3333-3333-3333-333333333301\"}\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "A2 - Delete service request",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/service-requests/delete/55555555-5555-5555-5555-555555555501"}
+        }
+      ]
+    },
+    {
+      "name": "B - DERIVED queries",
+      "item": [
+        {
+          "name": "B1 - Customers by last name",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/by-last-name?lastName=uwimana"}
+        },
+        {
+          "name": "B2 - Service requests by status",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/by-status?status=OPENED"}
+        },
+        {
+          "name": "B3 - Service requests between dates",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/between?start=2026-10-01&end=2026-10-31"}
+        }
+      ]
+    },
+    {
+      "name": "C - JPQL queries",
+      "item": [
+        {
+          "name": "C1 - Agents by skill",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/agents/by-skill?name=billing"}
+        },
+        {
+          "name": "C2 - Free counters",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/counters/free"}
+        },
+        {
+          "name": "C3 - Unused skills",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/skills/unused"}
+        },
+        {
+          "name": "C4 - Customers of agent",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/of-agent/33333333-3333-3333-3333-333333333301"}
+        },
+        {
+          "name": "C4 - Customers of agent (not found)",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/of-agent/00000000-0000-0000-0000-000000000000"}
+        }
+      ]
+    },
+    {
+      "name": "D - Business rules",
+      "item": [
+        {
+          "name": "D1 - Save past date (fail)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-requests/save",
+            "body": {"mode": "raw", "raw": "{\n  \"requestDate\": \"2026-01-01\",\n  \"subject\": \"Past request\",\n  \"customer\": {\"id\": \"44444444-4444-4444-4444-444444444401\"},\n  \"agent\": {\"id\": \"33333333-3333-3333-3333-333333333301\"}\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "D2 - Update status valid",
+          "request": {"method": "PATCH", "url": "{{baseUrl}}/api/service-requests/55555555-5555-5555-5555-555555555501/status?status=IN_PROGRESS"}
+        },
+        {
+          "name": "D2 - Update status invalid move (fail)",
+          "request": {"method": "PATCH", "url": "{{baseUrl}}/api/service-requests/55555555-5555-5555-5555-555555555501/status?status=RESOLVED"}
+        },
+        {
+          "name": "D3 - Add skill to agent",
+          "request": {"method": "PUT", "url": "{{baseUrl}}/api/agents/33333333-3333-3333-3333-333333333301/skills/11111111-1111-1111-1111-111111111103"}
+        },
+        {
+          "name": "D3 - Add duplicate skill (fail)",
+          "request": {"method": "PUT", "url": "{{baseUrl}}/api/agents/33333333-3333-3333-3333-333333333301/skills/11111111-1111-1111-1111-111111111101"}
+        },
+        {
+          "name": "D4 - Change agent counter",
+          "request": {"method": "PATCH", "url": "{{baseUrl}}/api/agents/33333333-3333-3333-3333-333333333303/counter?counterNumber=4"}
+        },
+        {
+          "name": "D4 - Counter taken by another agent (fail)",
+          "request": {"method": "PATCH", "url": "{{baseUrl}}/api/agents/33333333-3333-3333-3333-333333333303/counter?counterNumber=1"}
+        }
+      ]
+    },
+    {
+      "name": "E - ServiceNote",
+      "item": [
+        {
+          "name": "E1 - Save service note",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-notes/save?serviceRequestId=55555555-5555-5555-5555-555555555503",
+            "body": {"mode": "raw", "raw": "{\n  \"actionTaken\": \"Fixed billing\",\n  \"details\": \"Resolved billing issue\",\n  \"minutesSpent\": 30\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "E1 - Save note on non-resolved (fail)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-notes/save?serviceRequestId=55555555-5555-5555-5555-555555555501",
+            "body": {"mode": "raw", "raw": "{\n  \"actionTaken\": \"Attempted\",\n  \"details\": \"Not resolved\",\n  \"minutesSpent\": 10\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "E2 - Service notes by customer code",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-notes/customer/CU-00891"}
+        },
+        {
+          "name": "E3 - Delete service note",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/service-notes/delete/66666666-6666-6666-6666-666666666601"}
+        },
+        {
+          "name": "E3 - Delete service note (not found)",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/service-notes/delete/00000000-0000-0000-0000-000000000000"}
+        },
+        {
+          "name": "E3 - Delete service request with notes (fail)",
+          "request": {"method": "DELETE", "url": "{{baseUrl}}/api/service-requests/delete/55555555-5555-5555-5555-555555555503"}
+        }
+      ]
+    },
+    {
+      "name": "F - Stats and cancel-day",
+      "item": [
+        {
+          "name": "F1 - Stats by status",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/stats/by-status"}
+        },
+        {
+          "name": "F2 - Cancel day",
+          "request": {"method": "PATCH", "url": "{{baseUrl}}/api/service-requests/cancel-day?agentId=33333333-3333-3333-3333-333333333303&date=2026-10-20"}
+        }
+      ]
+    },
+    {
+      "name": "Bonus - Dashboard and pagination",
+      "item": [
+        {
+          "name": "Bonus - Dashboard summary",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/dashboard/summary"}
+        },
+        {
+          "name": "Bonus - Service requests page",
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/page?page=0&size=5&sort=requestDate,desc"}
+        }
+      ]
+    }
+  ]
+}
