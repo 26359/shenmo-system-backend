@@ -26,6 +26,10 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
 
     boolean existsByAgentIdAndRequestDateAndStatusNot(UUID agentId, LocalDate requestDate, RequestStatus status);
 
+    long countByRequestDate(LocalDate requestDate);
+
+    long countByStatus(RequestStatus status);
+
     @Query("SELECT sr.status, COUNT(sr) FROM ServiceRequest sr GROUP BY sr.status")
     List<Object[]> statsByStatus();
 

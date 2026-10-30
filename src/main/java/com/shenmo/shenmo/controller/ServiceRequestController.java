@@ -6,6 +6,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,6 +91,19 @@ public class ServiceRequestController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         String message = serviceRequestService.cancelDay(agentId, date);
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<ServiceRequest>> page(@RequestParam int page, @RequestParam int size,
+            @RequestParam String sort) {
+        String[] parts = sort.split(",");
+        String property = parts[0];
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.DESC;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, property));
+        return ResponseEntity.ok(serviceRequestService.findAll(pageable));
     }
 
     @GetMapping("/between")
