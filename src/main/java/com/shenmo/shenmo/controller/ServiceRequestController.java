@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,7 +37,13 @@ public class ServiceRequestController {
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ServiceRequest serviceRequest) {
         String message = serviceRequestService.save(serviceRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        if ("Service request saved successfully".equals(message)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        }
+        if ("Service request date cannot be in the past".equals(message)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
     }
 
     @GetMapping("/all")
@@ -50,6 +57,18 @@ public class ServiceRequestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The agent with that id does not exist");
         }
         return ResponseEntity.ok(serviceRequestService.findCustomersOfAgent(agentId));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> updateStatus(@PathVariable UUID id, @RequestParam RequestStatus status) {
+        String message = serviceRequestService.updateStatus(id, status);
+        if ("Service request status updated successfully".equals(message)) {
+            return ResponseEntity.ok(message);
+        }
+        if (message.startsWith("Cannot change status from")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
     @GetMapping("/by-status")

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,6 +42,30 @@ public class AgentController {
     @GetMapping("/by-skill")
     public ResponseEntity<List<Agent>> bySkill(@RequestParam String name) {
         return ResponseEntity.ok(agentService.findBySkill(name));
+    }
+
+    @PutMapping("/{agentId}/skills/{skillId}")
+    public ResponseEntity<?> addSkill(@PathVariable UUID agentId, @PathVariable UUID skillId) {
+        String message = agentService.addSkillToAgent(agentId, skillId);
+        if ("Skill added to the agent".equals(message)) {
+            return ResponseEntity.ok(message);
+        }
+        if ("The agent already has that skill".equals(message)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+    }
+
+    @PatchMapping("/{agentId}/counter")
+    public ResponseEntity<?> changeCounter(@PathVariable UUID agentId, @RequestParam int counterNumber) {
+        String message = agentService.changeAgentCounter(agentId, counterNumber);
+        if ("Counter changed successfully".equals(message)) {
+            return ResponseEntity.ok(message);
+        }
+        if ("That counter is taken by another agent".equals(message)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 
     @GetMapping("/{id}")

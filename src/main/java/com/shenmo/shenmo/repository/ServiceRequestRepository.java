@@ -22,4 +22,6 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
 
     @Query("SELECT DISTINCT sr.customer FROM ServiceRequest sr WHERE sr.agent.id = :agentId")
     List<Customer> findCustomersOfAgent(@Param("agentId") UUID agentId);
+
+    boolean existsByAgentIdAndRequestDateAndStatusNot(UUID agentId, LocalDate requestDate, RequestStatus status);
 }

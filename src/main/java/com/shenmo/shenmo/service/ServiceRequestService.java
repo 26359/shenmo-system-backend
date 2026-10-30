@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shenmo.shenmo.model.Agent;
 import com.shenmo.shenmo.model.Customer;
 import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
@@ -20,6 +21,17 @@ public class ServiceRequestService {
     private ServiceRequestRepository serviceRequestRepository;
 
     public String save(ServiceRequest serviceRequest) {
+        LocalDate today = LocalDate.now();
+        if (serviceRequest.getRequestDate() != null && serviceRequest.getRequestDate().isBefore(today)) {
+            return "Service request date cannot be in the past";
+        }
+        Agent agent = serviceRequest.getAgent();
+        if (agent != null && serviceRequest.getRequestDate() != null
+                && serviceRequestRepository.existsByAgentIdAndRequestDateAndStatusNot(agent.getId(),
+                        serviceRequest.getRequestDate(), RequestStatus.CLOSED_UNRESOLVED)) {
+            return "Agent already has a request on that date";
+        }
+        serviceRequest.setStatus(RequestStatus.OPENED);
         serviceRequestRepository.save(serviceRequest);
         return "Service request saved successfully";
     }
@@ -38,6 +50,25 @@ public class ServiceRequestService {
 
     public List<Customer> findCustomersOfAgent(UUID agentId) {
         return serviceRequestRepository.findCustomersOfAgent(agentId);
+    }
+
+    public String updateStatus(UUID id, RequestStatus status) {
+        Optional<ServiceRequest> existing = serviceRequestRepository.findById(id);
+        if (!existing.isPresent()) {
+            return "The service request with that id does not exist";
+        }
+        ServiceRequest sr = existing.get();
+        RequestStatus current = sr.getStatus();
+        boolean valid = (current == RequestStatus.OPENED
+                && (status == RequestStatus.IN_PROGRESS || status == RequestStatus.CLOSED_UNRESOLVED))
+                || (current == RequestStatus.IN_PROGRESS
+                && (status == RequestStatus.RESOLVED || status == RequestStatus.CLOSED_UNRESOLVED));
+        if (!valid) {
+            return "Cannot change status from " + current + " to " + status;
+        }
+        sr.setStatus(status);
+        serviceRequestRepository.save(sr);
+        return "Service request status updated successfully";
     }
 
     public Optional<ServiceRequest> findById(UUID id) {
