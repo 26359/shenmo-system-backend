@@ -25,6 +25,10 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    public List<Customer> findByLastName(String lastName) {
+        return customerRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
     public Optional<Customer> findById(UUID id) {
         return customerRepository.findById(id);
     }

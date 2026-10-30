@@ -1,5 +1,6 @@
 package com.shenmo.shenmo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
 import com.shenmo.shenmo.service.ServiceRequestService;
 
@@ -35,6 +38,18 @@ public class ServiceRequestController {
     @GetMapping("/all")
     public ResponseEntity<List<ServiceRequest>> getAll() {
         return ResponseEntity.ok(serviceRequestService.findAll());
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<ServiceRequest>> byStatus(@RequestParam RequestStatus status) {
+        return ResponseEntity.ok(serviceRequestService.findByStatus(status));
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<ServiceRequest>> between(@RequestParam String start, @RequestParam String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return ResponseEntity.ok(serviceRequestService.findBetween(startDate, endDate));
     }
 
     @GetMapping("/{id}")

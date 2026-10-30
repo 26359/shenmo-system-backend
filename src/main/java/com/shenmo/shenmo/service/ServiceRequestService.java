@@ -1,5 +1,6 @@
 package com.shenmo.shenmo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -7,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
 import com.shenmo.shenmo.repository.ServiceRequestRepository;
 
@@ -23,6 +25,14 @@ public class ServiceRequestService {
 
     public List<ServiceRequest> findAll() {
         return serviceRequestRepository.findAll();
+    }
+
+    public List<ServiceRequest> findByStatus(RequestStatus status) {
+        return serviceRequestRepository.findByStatusOrderByRequestDateAsc(status);
+    }
+
+    public List<ServiceRequest> findBetween(LocalDate start, LocalDate end) {
+        return serviceRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
     }
 
     public Optional<ServiceRequest> findById(UUID id) {
