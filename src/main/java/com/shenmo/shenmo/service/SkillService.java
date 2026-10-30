@@ -25,6 +25,10 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
+    public List<Skill> findUnusedSkills() {
+        return skillRepository.findUnusedSkills();
+    }
+
     public Optional<Skill> findById(UUID id) {
         return skillRepository.findById(id);
     }

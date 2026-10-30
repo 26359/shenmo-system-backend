@@ -25,6 +25,10 @@ public class AgentService {
         return agentRepository.findAll();
     }
 
+    public List<Agent> findBySkill(String name) {
+        return agentRepository.findBySkill(name);
+    }
+
     public Optional<Agent> findById(UUID id) {
         return agentRepository.findById(id);
     }

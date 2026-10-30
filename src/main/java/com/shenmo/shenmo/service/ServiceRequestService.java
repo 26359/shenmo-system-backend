@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shenmo.shenmo.model.Customer;
 import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
 import com.shenmo.shenmo.repository.ServiceRequestRepository;
@@ -33,6 +34,10 @@ public class ServiceRequestService {
 
     public List<ServiceRequest> findBetween(LocalDate start, LocalDate end) {
         return serviceRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
+    }
+
+    public List<Customer> findCustomersOfAgent(UUID agentId) {
+        return serviceRequestRepository.findCustomersOfAgent(agentId);
     }
 
     public Optional<ServiceRequest> findById(UUID id) {
