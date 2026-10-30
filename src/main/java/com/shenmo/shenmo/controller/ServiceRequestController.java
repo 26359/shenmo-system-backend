@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
-import com.shenmo.shenmo.service.AgentService;
 import com.shenmo.shenmo.service.ServiceRequestService;
 
 @RestController
@@ -35,9 +34,6 @@ public class ServiceRequestController {
 
     @Autowired
     private ServiceRequestService serviceRequestService;
-
-    @Autowired
-    private AgentService agentService;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody ServiceRequest serviceRequest) {
@@ -54,14 +50,6 @@ public class ServiceRequestController {
     @GetMapping("/all")
     public ResponseEntity<List<ServiceRequest>> getAll() {
         return ResponseEntity.ok(serviceRequestService.findAll());
-    }
-
-    @GetMapping("/of-agent/{agentId}")
-    public ResponseEntity<?> customersOfAgent(@PathVariable UUID agentId) {
-        if (!agentService.findById(agentId).isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The agent with that id does not exist");
-        }
-        return ResponseEntity.ok(serviceRequestService.findCustomersOfAgent(agentId));
     }
 
     @PatchMapping("/{id}/status")

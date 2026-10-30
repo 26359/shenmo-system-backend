@@ -220,17 +220,35 @@
         },
         {
           "name": "C4 - Customers of agent",
-          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/of-agent/33333333-3333-3333-3333-333333333301"}
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/of-agent/33333333-3333-3333-3333-333333333301"}
         },
         {
           "name": "C4 - Customers of agent (not found)",
-          "request": {"method": "GET", "url": "{{baseUrl}}/api/service-requests/of-agent/00000000-0000-0000-0000-000000000000"}
+          "request": {"method": "GET", "url": "{{baseUrl}}/api/customers/of-agent/00000000-0000-0000-0000-000000000000"}
         }
       ]
     },
     {
       "name": "D - Business rules",
       "item": [
+        {
+          "name": "D1 - Save valid future date",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-requests/save",
+            "body": {"mode": "raw", "raw": "{\n  \"requestDate\": \"2026-12-15\",\n  \"subject\": \"Future request\",\n  \"customer\": {\"id\": \"44444444-4444-4444-4444-444444444401\"},\n  \"agent\": {\"id\": \"33333333-3333-3333-3333-333333333301\"}\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
+        {
+          "name": "D1 - Agent already has a request on that date (fail)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": "{{baseUrl}}/api/service-requests/save",
+            "body": {"mode": "raw", "raw": "{\n  \"requestDate\": \"2026-12-15\",\n  \"subject\": \"Duplicate future request\",\n  \"customer\": {\"id\": \"44444444-4444-4444-4444-444444444401\"},\n  \"agent\": {\"id\": \"33333333-3333-3333-3333-333333333301\"}\n}", "options": {"raw": {"language": "json"}}}
+          }
+        },
         {
           "name": "D1 - Save past date (fail)",
           "request": {

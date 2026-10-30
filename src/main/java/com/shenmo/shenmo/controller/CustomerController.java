@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shenmo.shenmo.model.Customer;
+import com.shenmo.shenmo.service.AgentService;
 import com.shenmo.shenmo.service.CustomerService;
 
 @RestController
@@ -26,6 +27,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private AgentService agentService;
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody Customer customer) {
@@ -41,6 +45,14 @@ public class CustomerController {
     @GetMapping("/by-last-name")
     public ResponseEntity<List<Customer>> byLastName(@RequestParam String lastName) {
         return ResponseEntity.ok(customerService.findByLastName(lastName));
+    }
+
+    @GetMapping("/of-agent/{agentId}")
+    public ResponseEntity<?> customersOfAgent(@PathVariable UUID agentId) {
+        if (!agentService.findById(agentId).isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The agent with that id does not exist");
+        }
+        return ResponseEntity.ok(customerService.findCustomersOfAgent(agentId));
     }
 
     @GetMapping("/{id}")

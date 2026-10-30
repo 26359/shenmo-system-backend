@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.shenmo.shenmo.model.Customer;
 import com.shenmo.shenmo.repository.CustomerRepository;
+import com.shenmo.shenmo.repository.ServiceRequestRepository;
 
 @Service
 public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private ServiceRequestRepository serviceRequestRepository;
 
     public String save(Customer customer) {
         customerRepository.save(customer);
@@ -27,6 +31,10 @@ public class CustomerService {
 
     public List<Customer> findByLastName(String lastName) {
         return customerRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
+    public List<Customer> findCustomersOfAgent(UUID agentId) {
+        return serviceRequestRepository.findCustomersOfAgent(agentId);
     }
 
     public Optional<Customer> findById(UUID id) {
