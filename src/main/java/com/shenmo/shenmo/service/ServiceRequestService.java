@@ -12,6 +12,7 @@ import com.shenmo.shenmo.model.Agent;
 import com.shenmo.shenmo.model.Customer;
 import com.shenmo.shenmo.model.RequestStatus;
 import com.shenmo.shenmo.model.ServiceRequest;
+import com.shenmo.shenmo.repository.ServiceNoteRepository;
 import com.shenmo.shenmo.repository.ServiceRequestRepository;
 
 @Service
@@ -19,6 +20,9 @@ public class ServiceRequestService {
 
     @Autowired
     private ServiceRequestRepository serviceRequestRepository;
+
+    @Autowired
+    private ServiceNoteRepository serviceNoteRepository;
 
     public String save(ServiceRequest serviceRequest) {
         LocalDate today = LocalDate.now();
@@ -91,10 +95,15 @@ public class ServiceRequestService {
     }
 
     public String delete(UUID id) {
-        if (serviceRequestRepository.existsById(id)) {
-            serviceRequestRepository.deleteById(id);
-            return "Service request deleted successfully";
+        Optional<ServiceRequest> existing = serviceRequestRepository.findById(id);
+        if (!existing.isPresent()) {
+            return "The service request with that id does not exist";
         }
-        return "The service request with that id does not exist";
+        ServiceRequest sr = existing.get();
+        if (serviceNoteRepository.existsByServiceRequest(sr)) {
+            return "That service request has service notes, delete them first";
+        }
+        serviceRequestRepository.deleteById(id);
+        return "Service request deleted successfully";
     }
 }

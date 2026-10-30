@@ -107,6 +107,9 @@ public class ServiceRequestController {
         if ("Service request deleted successfully".equals(message)) {
             return ResponseEntity.ok(message);
         }
+        if ("That service request has service notes, delete them first".equals(message)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
 }
