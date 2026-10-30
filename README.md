@@ -2,7 +2,8 @@
 
 **Author:** MUGANWA Christian  
 **Student ID:** 26359  
-**Project:** Shenmo System (Spring Boot backend)
+**Project:** Shenmo System (Spring Boot backend)  
+**Repo:** shenmo-system-backend
 
 ## Description
 
