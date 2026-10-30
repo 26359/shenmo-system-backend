@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shenmo.shenmo.model.Agent;
 import com.shenmo.shenmo.model.Customer;
@@ -54,6 +55,16 @@ public class ServiceRequestService {
 
     public List<Customer> findCustomersOfAgent(UUID agentId) {
         return serviceRequestRepository.findCustomersOfAgent(agentId);
+    }
+
+    public List<Object[]> statsByStatus() {
+        return serviceRequestRepository.statsByStatus();
+    }
+
+    @Transactional
+    public String cancelDay(UUID agentId, LocalDate date) {
+        int count = serviceRequestRepository.cancelDay(RequestStatus.CLOSED_UNRESOLVED, agentId, date);
+        return count + " service requests cancelled";
     }
 
     public String updateStatus(UUID id, RequestStatus status) {

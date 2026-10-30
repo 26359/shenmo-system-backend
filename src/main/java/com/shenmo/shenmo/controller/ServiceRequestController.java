@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -74,6 +75,18 @@ public class ServiceRequestController {
     @GetMapping("/by-status")
     public ResponseEntity<List<ServiceRequest>> byStatus(@RequestParam RequestStatus status) {
         return ResponseEntity.ok(serviceRequestService.findByStatus(status));
+    }
+
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> statsByStatus() {
+        return ResponseEntity.ok(serviceRequestService.statsByStatus());
+    }
+
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<?> cancelDay(@RequestParam UUID agentId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        String message = serviceRequestService.cancelDay(agentId, date);
+        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/between")
