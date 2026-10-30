@@ -69,7 +69,7 @@ public class ServiceRequestService {
 
     @Transactional
     public String cancelDay(UUID agentId, LocalDate date) {
-        int count = serviceRequestRepository.cancelDay(RequestStatus.CLOSED_UNRESOLVED, agentId, date);
+        int count = serviceRequestRepository.cancelDay(RequestStatus.CLOSED_UNRESOLVED, agentId, date, RequestStatus.RESOLVED);
         return count + " service requests cancelled";
     }
 

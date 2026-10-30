@@ -34,6 +34,6 @@ public interface ServiceRequestRepository extends JpaRepository<ServiceRequest, 
     List<Object[]> statsByStatus();
 
     @Modifying
-    @Query("UPDATE ServiceRequest sr SET sr.status = :status WHERE sr.agent.id = :agentId AND sr.requestDate = :date AND sr.status <> 'RESOLVED'")
-    int cancelDay(@Param("status") RequestStatus status, @Param("agentId") UUID agentId, @Param("date") LocalDate date);
+    @Query("UPDATE ServiceRequest sr SET sr.status = :status WHERE sr.agent.id = :agentId AND sr.requestDate = :date AND sr.status <> :resolved")
+    int cancelDay(@Param("status") RequestStatus status, @Param("agentId") UUID agentId, @Param("date") LocalDate date, @Param("resolved") RequestStatus resolved);
 }

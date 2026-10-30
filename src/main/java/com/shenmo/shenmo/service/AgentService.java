@@ -76,7 +76,10 @@ public class AgentService {
         }
         Agent agent = agentOpt.get();
         Skill skill = skillOpt.get();
-        if (agent.getSkills() != null && agent.getSkills().contains(skill)) {
+        if (agent.getSkills() == null) {
+            agent.setSkills(new ArrayList<>());
+        }
+        if (agent.getSkills().contains(skill)) {
             return "The agent already has that skill";
         }
         agent.getSkills().add(skill);
